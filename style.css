@@ -120,3 +120,15 @@ h1 {
   text-decoration: line-through;
   color: #888;
 }
+
+/* save button */
+#saveButton
+{
+  background: #4caf50;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  border: none;
+  height: 30px;
+}

@@ -1,42 +1,75 @@
 inputTask = document.getElementById("inputTask");
 doneButton = document.getElementById("doneButton");
 taskList = document.getElementById("taskList");
+const saveButton = document.getElementById("saveButton");
 
 let i = 0;
+let taskArray = [];
 
-function doneButtonClicked() {
-  let task = document.createElement("input");
-  task.setAttribute("type", "checkbox");
-  let label = document.createElement("label");
+function renderTasks() {
+  taskList.innerHTML = "";
 
-  i++;
-  let taskId = `task${i}`;
-  task.setAttribute("id", taskId);
-  label.setAttribute("for", taskId);
+  taskArray.forEach((task) => {
+    const taskdiv = document.createElement("div");
+    taskdiv.className = "tasks";
 
-  let taskValue = inputTask.value;
-  label.innerText = taskValue;
-  inputTask.value = "";
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = task.completed;
 
-  let deleteButton = document.createElement("btn");
-  let deleteButtonId = `deleteButton${i}`;
-  deleteButton.setAttribute("id", deleteButtonId);
-  deleteButton.innerText = "Remove";
-  deleteButton.classList.add("deleteButtons");
+    const label = document.createElement("label");
+    label.innerText = task.text;
 
-  let taskdiv = document.createElement("div");
-  let taskdivId = `taskdiv${i}`;
-  taskdiv.setAttribute("id", taskdivId);
-  taskdiv.classList.add("tasks");
+    const deleteButton = document.createElement("button");
+    deleteButton.innerText = "Remove";
+    deleteButton.classList.add("deleteButtons");
 
-  deleteButton.addEventListener("click", () => taskdiv.remove());
+    deleteButton.addEventListener("click", () => {
+      deleteTask(task.id);
+    });
 
-  taskdiv.appendChild(task);
-  taskdiv.appendChild(label);
-  taskdiv.appendChild(deleteButton);
-  taskList.prepend(taskdiv);
+    checkbox.addEventListener("change", () => {
+      task.completed = checkbox.checked;
+    });
+
+    taskdiv.append(checkbox, label, deleteButton);
+    taskList.append(taskdiv);
+  });
 }
 
-doneButton.addEventListener("click", () => {
-  if (inputTask.value != "") doneButtonClicked();
+function deleteTask(id) {
+  taskArray = taskArray.filter((task) => task.id !== id);
+  renderTasks();
+}
+
+function doneButtonClicked() {
+  if (inputTask.value.trim() === "") return;
+
+  const taskObj = {
+    id: Date.now(), // unique id
+    text: inputTask.value,
+    completed: false,
+  };
+
+  taskArray.unshift(taskObj);
+  inputTask.value = "";
+
+  renderTasks();
+}
+
+function loadTasks() {
+  let savedTasks = localStorage.getItem("tasks");
+
+  if (!savedTasks) return;
+
+  taskArray = JSON.parse(savedTasks);
+  renderTasks();
+}
+
+saveButton.addEventListener("click", () => {
+  localStorage.setItem("tasks", JSON.stringify(taskArray));
+  alert("Tasks saved!");
 });
+
+window.addEventListener("DOMContentLoaded", loadTasks);
+doneButton.addEventListener("click", doneButtonClicked);
