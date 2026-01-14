@@ -35,7 +35,7 @@ h1 {
 }
 
 /* Input section */
-#takeInput {
+.takeInput {
   display: flex;
   gap: 10px;
   margin-bottom: 15px;
@@ -57,7 +57,7 @@ h1 {
 }
 
 /* Done button */
-#doneButton {
+#doneButton, #searchButton {
   padding: 10px 15px;
   background: #4caf50;
   color: #fff;
