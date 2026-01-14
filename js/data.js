@@ -1,9 +1,14 @@
 // js/data.js
 export let taskArray = [];
-
+export let searchQuery = "";
 
 export function setTasks(newTasks) {
   taskArray = newTasks;
+}
+
+export function setSearchQuery(query)
+{
+    searchQuery = query;
 }
 
 export function saveTasks() {

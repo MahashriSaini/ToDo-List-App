@@ -40,10 +40,11 @@ h1 {
   gap: 10px;
   margin-bottom: 15px;
   align-items:center;
+  
 }
 
 /* Input box */
-#inputTask {
+#inputTask, #searchInput {
   flex: 1;
   padding: 10px;
   border-radius: 6px;
@@ -57,7 +58,7 @@ h1 {
 }
 
 /* Done button */
-#doneButton, #searchButton {
+#doneButton {
   padding: 10px 15px;
   background: #4caf50;
   color: #fff;

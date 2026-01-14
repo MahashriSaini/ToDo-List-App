@@ -1,36 +1,29 @@
 // js/ui.js
-import { taskArray } from "./data.js";
+import { taskArray, searchQuery } from "./data.js";
 import { editTask, deleteTask } from "./actions.js";
 
 const taskList = document.getElementById("taskList");
 
-// export function noMatchRender()
-// {
-//     const taskdiv = document.createElement("div");
-//     taskdiv.className = "tasks";
-
-//     const no = document.createElement("p");
-//     no.innerText = "No tasks matched!";
-
-//     taskdiv.appendChild(no);
-//     taskList.appendChild(taskdiv); 
-// }
+function getVisibleTasks() {
+  return taskArray.filter((task) =>
+    task.text.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+}
 
 export function renderTasks() {
   taskList.innerHTML = "";
 
-  if (taskArray.length === 0) {
-    const taskdiv = document.createElement("div");
-    taskdiv.className = "tasks";
+  const visibleTasks = getVisibleTasks();
 
-    const noTaskPara = document.createElement("p");
-    noTaskPara.innerText = "No tasks yet!";
-
-    taskdiv.appendChild(noTaskPara);
-    taskList.appendChild(taskdiv);
+  if (visibleTasks.length === 0) {
+    const message = document.createElement("p");
+    message.className = "empty-message";
+    message.innerText = searchQuery ? "No tasks matched!" : "No tasks yet!";
+    taskList.appendChild(message);
+    return;
   }
 
-  taskArray.forEach((task) => {
+  visibleTasks.forEach((task) => {
     const taskdiv = document.createElement("div");
     taskdiv.className = "tasks";
 

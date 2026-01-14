@@ -29,19 +29,3 @@ export function deleteTask(id) {
   renderTasks();
 }
 
-// export function searchTask(searchedtext) {
-//   //if search box is empty render original taskArray
-
-//   const searchOutput = taskArray.filter((task) =>
-//     task.text.includes(searchedtext)
-//   );
-//   if (searchOutput.length === 0) {
-//     console.log("no matching tasks");
-//     noMatchRender();
-//   } else {
-//     setTasks(searchOutput);
-//     renderTasks();
-//   }
-//   setTasks(taskArray);
-//   renderTasks();
-// }
