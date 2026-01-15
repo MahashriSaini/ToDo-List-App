@@ -6,8 +6,79 @@ const taskList = document.getElementById("taskList");
 
 function getVisibleTasks() {
   return taskArray.filter((task) =>
-    task.text.toLowerCase().includes(searchQuery.toLowerCase())
+    task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    task.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
+}
+
+
+function createTaskCard(task) {
+  const taskCard = document.createElement("div");
+  taskCard.className = "task-card";
+
+  const taskMain = document.createElement("div");
+  taskMain.className = "task-main";
+
+  const taskHeader = document.createElement("div");
+  taskHeader.className = "task-header";
+
+  const taskCheckbox = document.createElement("input");
+  taskCheckbox.type = "checkbox";
+  taskCheckbox.className = "task-checkbox";
+  taskCheckbox.checked = task.completed;
+
+  taskCheckbox.addEventListener("change", () => {
+    task.completed = taskCheckbox.checked;
+  });
+
+  const taskTitle = document.createElement("label");
+  taskTitle.className = "task-title";
+  taskTitle.innerText = task.title;
+
+  const taskPriority = document.createElement("span");
+  taskPriority.className = "task-priority";
+  taskPriority.classList.add(task.priority.toLowerCase());
+  taskPriority.innerText = task.priority;
+
+  taskHeader.append(taskCheckbox, taskTitle, taskPriority);
+
+  const taskMeta = document.createElement("div");
+  taskMeta.className = "task-meta";
+
+  const taskDueDate = document.createElement("span");
+  taskDueDate.className = "task-due-date";
+  taskDueDate.innerText = task.dueDate;
+
+  const taskCategory = document.createElement("span");
+  taskCategory.className = "task-category";
+  taskCategory.innerText = task.category;
+
+  taskMeta.append(taskDueDate, taskCategory);
+
+  const taskDesc = document.createElement("p");
+  taskDesc.className = "task-desc";
+  taskDesc.innerText = task.description;
+
+  taskMain.append(taskHeader, taskMeta, taskDesc);
+
+  const taskActions = document.createElement("div");
+  taskActions.className = "task-actions";
+
+  const editButton = document.createElement("button");
+  editButton.innerText = "Edit";
+  editButton.classList.add("btn", "edit-btn");
+  editButton.addEventListener("click", () => editTask(task));
+
+  const deleteButton = document.createElement("button");
+  deleteButton.innerText = "Remove";
+  deleteButton.classList.add("btn", "delete-btn");
+  deleteButton.addEventListener("click", () => deleteTask(task.id));
+
+  taskActions.append(editButton, deleteButton);
+
+  taskCard.append(taskMain, taskActions);
+
+  return taskCard;
 }
 
 export function renderTasks() {
@@ -24,46 +95,6 @@ export function renderTasks() {
   }
 
   visibleTasks.forEach((task) => {
-    const taskdiv = document.createElement("div");
-    taskdiv.className = "tasks";
-
-    if (task.isEditing) {
-      const editInput = document.createElement("input");
-      editInput.type = "text";
-      editInput.value = task.text;
-
-      editInput.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-          task.text = editInput.value.trim();
-          task.isEditing = false;
-          renderTasks();
-        }
-      });
-
-      taskdiv.appendChild(editInput);
-    } else {
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.checked = task.completed;
-
-      checkbox.addEventListener("change", () => {
-        task.completed = checkbox.checked;
-      });
-
-      const label = document.createElement("label");
-      label.innerText = task.text;
-
-      const editButton = document.createElement("button");
-      editButton.innerText = "Edit";
-      editButton.addEventListener("click", () => editTask(task.id));
-
-      const deleteButton = document.createElement("button");
-      deleteButton.innerText = "Remove";
-      deleteButton.addEventListener("click", () => deleteTask(task.id));
-
-      taskdiv.append(checkbox, label, editButton, deleteButton);
-    }
-
-    taskList.appendChild(taskdiv);
+    taskList.appendChild(createTaskCard(task));
   });
 }

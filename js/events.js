@@ -3,17 +3,14 @@ import { addTask } from "./actions.js";
 import { saveTasks, setSearchQuery } from "./data.js";
 import { renderTasks } from "./ui.js";
 
-const inputTask = document.getElementById("inputTask");
 const searchInput = document.getElementById("searchInput");
-const doneButton = document.getElementById("doneButton");
 const saveButton = document.getElementById("saveButton");
+const addTaskButton = document.getElementById("addTask");
+const formDiv = document.getElementById("addTaskForm");
+const saveFormButton = document.getElementById("saveForm");
+const taskForm = document.getElementById("taskForm");
 
 export function initEvents() {
-  doneButton.addEventListener("click", () => {
-    addTask(inputTask.value);
-    inputTask.value = "";
-  });
-
   saveButton.addEventListener("click", () => {
     saveTasks();
     alert("Tasks saved!");
@@ -22,5 +19,15 @@ export function initEvents() {
   searchInput.addEventListener("input", (e) => {
     setSearchQuery(e.target.value);
     renderTasks();
-  })
+  });
+
+  addTaskButton.addEventListener("click", () => {
+    formDiv.classList.add("active");
+  });
+
+  saveFormButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    addTask(taskForm);
+    formDiv.classList.remove("active");
+  });
 }
