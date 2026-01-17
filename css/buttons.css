@@ -13,6 +13,9 @@ button,
 #addTaskbtn {
   width: 100%;
 }
+#sortbtn.inactive {
+  display: none;
+}
 
 button:hover,
 #addTaskbtn:hover {

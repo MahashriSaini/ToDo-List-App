@@ -1,14 +1,28 @@
 // js/ui.js
-import { taskArray, searchQuery } from "./data.js";
+import { taskArray, searchQuery, sortMode } from "./data.js";
 import { editTask, deleteTask } from "./actions.js";
 
 const taskList = document.getElementById("taskList");
 
 function getVisibleTasks() {
-  return taskArray.filter((task) =>
-    task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    task.description.toLowerCase().includes(searchQuery.toLowerCase())
+   let tasks = taskArray.filter(task =>
+    task.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  if (sortMode === "dueDate") {
+    tasks = [...tasks].sort(
+      (a, b) => new Date(a.dueDate) - new Date(b.dueDate)
+    );
+  }
+
+  if (sortMode === "priority") {
+    const order = { High: 1, Medium: 2, Low: 3 };
+    tasks = [...tasks].sort(
+      (a, b) => order[a.priority] - order[b.priority]
+    );
+  }
+
+  return tasks;
 }
 
 

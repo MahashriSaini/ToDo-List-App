@@ -18,3 +18,10 @@ select {
   outline: none;
   border-color: #4caf50;
 }
+
+#choiceForSort {
+  display: none;
+}
+#choiceForSort.active {
+  display: block;
+}
