@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1769524556279,
+    "title": "jjjhjh",
+    "description": "fsdsnk k;l  ui uyiy gfg",
+    "priority": "Low",
+    "dueDate": "2026-01-03",
+    "category": "Personal",
+    "completed": false
+  },
+  {
+    "id": 1769521955015,
+    "title": "mastery science",
+    "description": "exponents, trigonometry, polynomials",
+    "priority": "medium",
+    "dueDate": "2026-12-12",
+    "completed": false
+  },
+  {
+    "id": 1700000000003,
+    "title": "Revise DSA",
+    "description": "Practice arrays and linked lists",
+    "priority": "High",
+    "dueDate": "2026-02-28",
+    "completed": true,
+    "category": "Personal"
+  }
+]
