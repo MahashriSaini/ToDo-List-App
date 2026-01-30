@@ -25,3 +25,12 @@ select {
 #choiceForSort.active {
   display: block;
 }
+
+#invalidInput {
+  display: none;
+}
+
+#invalidInput.active {
+  display: block;
+  color: red;
+}

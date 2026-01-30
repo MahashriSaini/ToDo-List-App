@@ -2,6 +2,7 @@
 import express from "express";
 import cors from "cors";
 import { readTodos, writeTodos } from "./utils/fileHandler.js";
+import { validateTodo } from "./utils/validateTodo.js";
 
 const app = express();
 const PORT = 5000;
@@ -30,6 +31,12 @@ app.post("/todos", (req, res) => {
     completed: false,
   };
 
+  const validateResponse = validateTodo(newTodo);
+  if(validateResponse !== null)
+  {
+    return res.status(422).json({error: validateResponse});
+  }
+
   todos.unshift(newTodo);
   writeTodos(todos);
 
@@ -40,6 +47,12 @@ app.post("/todos", (req, res) => {
 app.put("/todos/:id", (req, res) => {
   const todos = readTodos();
   const id = Number(req.params.id);
+
+const validateResponse = validateTodo(req.body);
+  if(validateResponse !== null)
+  {
+    return res.status(422).json({error: validateResponse});
+  }
 
   const updatedTodos = todos.map((todo) =>
     todo.id === id ? { ...todo, ...req.body } : todo,

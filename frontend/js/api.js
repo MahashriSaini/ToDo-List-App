@@ -11,7 +11,13 @@ export async function createTodo(todo) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(todo),
   });
-  return res.json();
+
+  const data = await res.json();
+
+  if(!res.ok){
+    throw new Error(data.error || "Something went wrong");
+  }
+  return data;
 }
 
 export async function updateTodo(id, updates) {
@@ -20,6 +26,12 @@ export async function updateTodo(id, updates) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(updates),
   });
+  const data = await res.json();
+
+  if(!res.ok){
+    throw new Error(data.error || "Something went wrong");
+  }
+  return data;
 }
 
 export async function deleteTodo(id) {

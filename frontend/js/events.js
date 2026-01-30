@@ -29,7 +29,6 @@ export function initEvents() {
   saveFormButton.addEventListener("click", (e) => {
     e.preventDefault();
     addTask(taskForm);
-    formDiv.classList.remove("active");
   });
 
   //  Sort button

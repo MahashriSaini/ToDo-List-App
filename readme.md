@@ -32,6 +32,10 @@ Drag & Drop
 
 sort tasks on the basis of - priority, dueDate( increasing order) ✔️
 
+Backend 
+1. Input validation ✔️
+2. http server ✔️
+
 Bulk Actions
 1. Select multiple tasks
 2. Delete selected tasks
