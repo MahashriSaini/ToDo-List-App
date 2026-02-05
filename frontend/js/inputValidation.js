@@ -7,6 +7,9 @@ export function validateTask(taskData) {
     return "Title too long**";
   }
 
+  if(!taskData.dueDate) {
+    return "Enter due date **"
+  }
   if (taskData.dueDate && new Date(taskData.dueDate) < new Date()) {
     return "Due date cannot be in the past**";
   }

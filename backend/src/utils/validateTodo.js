@@ -39,6 +39,7 @@ export function validateTodo(todo) {
   const result = todoSchema.safeParse(todo);
 
   if (!result.success) {
+    console.log(error);
     return result.error.issues[0].message;
   }
 

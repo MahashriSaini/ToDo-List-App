@@ -35,6 +35,7 @@ sort tasks on the basis of - priority, dueDate( increasing order) ✔️
 Backend 
 1. Input validation ✔️
 2. http server ✔️
+3. authentication added ✔️
 
 Bulk Actions
 1. Select multiple tasks

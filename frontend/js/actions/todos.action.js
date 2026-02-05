@@ -1,19 +1,17 @@
 // js/actions.js
-import { createTodo, getTodos, updateTodo, deleteTodo } from "./api.js";
+import { createTodo, getTodos, updateTodo, deleteTodo } from "../apis/todo.api.js";
 import {
   setTasks,
   editingTaskId,
   clearEditingTask,
   setEditingTask,
-} from "./data.js";
-import { renderTasks } from "./ui.js";
-import { validateTask } from "./inputValidation.js";
-
-const formDiv = document.getElementById("addTaskForm");
-const taskForm = document.getElementById("taskForm");
-const invalidInput = document.getElementById("invalidInput");
+} from "../data.js";
+import { renderTasks } from "../ui.js";
+import { validateTask } from "../inputValidation.js";
 
 export async function addTask(form) {
+  const formDiv = document.getElementById("addTaskForm");
+  const invalidInput = document.getElementById("invalidInput");
   const taskData = {
     title: form.title.value.trim(),
     description: form.description.value.trim(),
@@ -56,6 +54,8 @@ export async function addTask(form) {
 
 
 export function editTask(task) {
+  const formDiv = document.getElementById("addTaskForm");
+  const taskForm = document.getElementById("taskForm");
   // refilling form with old details before it appears on ui when user clicks on edit button
   taskForm.title.value = task.title;
   taskForm.description.value = task.description;

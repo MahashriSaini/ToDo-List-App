@@ -1,8 +1,7 @@
 // js/ui.js
 import { taskArray, searchQuery, sortMode } from "./data.js";
-import { editTask, deleteTask } from "./actions.js";
+import { editTask, deleteTask } from "./actions/todos.action.js";
 
-const taskList = document.getElementById("taskList");
 
 function getVisibleTasks() {
    let tasks = taskArray.filter(task =>
@@ -96,6 +95,7 @@ function createTaskCard(task) {
 }
 
 export function renderTasks() {
+  const taskList = document.getElementById("taskList"); 
   taskList.innerHTML = "";
 
   const visibleTasks = getVisibleTasks();
