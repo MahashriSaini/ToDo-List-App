@@ -60,7 +60,7 @@ function createTaskCard(task) {
 
   const taskDueDate = document.createElement("span");
   taskDueDate.className = "task-due-date";
-  taskDueDate.innerText = task.dueDate;
+  taskDueDate.innerText = new Date(task.dueDate).toLocaleDateString("en-IN");
 
   const taskCategory = document.createElement("span");
   taskCategory.className = "task-category";
@@ -85,7 +85,7 @@ function createTaskCard(task) {
   const deleteButton = document.createElement("button");
   deleteButton.innerText = "Remove";
   deleteButton.classList.add("btn", "delete-btn");
-  deleteButton.addEventListener("click", () => deleteTask(task.id));
+  deleteButton.addEventListener("click", () => deleteTask(task._id));
 
   taskActions.append(editButton, deleteButton);
 

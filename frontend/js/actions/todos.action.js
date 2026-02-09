@@ -1,5 +1,10 @@
 // js/actions.js
-import { createTodo, getTodos, updateTodo, deleteTodo } from "../apis/todo.api.js";
+import {
+  createTodo,
+  getTodos,
+  updateTodo,
+  deleteTodo,
+} from "../apis/todo.api.js";
 import {
   setTasks,
   editingTaskId,
@@ -44,14 +49,12 @@ export async function addTask(form) {
     form.reset();
     formDiv.classList.remove("active");
     invalidInput.classList.remove("active");
-
   } catch (error) {
     // backend validation error (422 etc)
     invalidInput.classList.add("active");
     invalidInput.innerText = error.message;
   }
 }
-
 
 export function editTask(task) {
   const formDiv = document.getElementById("addTaskForm");
@@ -63,7 +66,7 @@ export function editTask(task) {
   taskForm.dueDate.value = task.dueDate;
   taskForm.category.value = task.category;
 
-  setEditingTask(task.id);
+  setEditingTask(task._id);
   formDiv.classList.add("active");
 }
 

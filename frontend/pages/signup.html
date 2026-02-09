@@ -1,18 +1,58 @@
-<h2>Create Account</h2>
+<div class="auth-container">
+  <div class="auth-card " id="signupSection">
 
-<div id="authError" class="error"></div>
+    <h2 class="auth-title">Create Account 🚀</h2>
+    <p class="auth-subtitle">Join us and get started</p>
 
-<form id="signupForm">
-  <input type="text" id="name" placeholder="Full Name" required />
+    <!-- Error / success message -->
+    <div id="authError" class="auth-message error hidden"></div>
 
-  <input type="email" id="email" placeholder="Email" required />
+    <form id="signupForm" class="auth-form">
 
-  <input type="password" id="password" placeholder="Password" required />
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="John Doe"
+          required
+        />
+      </div>
 
-  <button type="submit" id="signup">Signup</button>
-</form>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="you@example.com"
+          required
+        />
+      </div>
 
-<p>
-  Already have an account?
-  <a href="#" id="goLogin">Login</a>
-</p>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Minimum 6 characters"
+          minlength="6"
+          required
+        />
+      </div>
+
+      <button type="submit" id="signup" class="btn-primary">
+        Signup
+      </button>
+
+    </form>
+
+    <p class="auth-footer">
+      Already have an account?
+      <a href="#" id="goLogin">Login</a>
+    </p>
+
+  </div>
+</div>

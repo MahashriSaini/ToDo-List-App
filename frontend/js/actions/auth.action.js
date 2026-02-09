@@ -1,4 +1,4 @@
-import {signup, login} from "../apis/auth.api.js";
+import { signup, login } from "../apis/auth.api.js";
 import { loadPage } from "../router.js";
 
 export async function handleLogin() {
@@ -26,6 +26,7 @@ export async function handleSignup() {
     loadPage("app");
   } catch (err) {
     authError.innerText = err.message;
+    authError.classList.remove(hidden);
   }
 }
 

@@ -1,52 +1,58 @@
 // controllers/todo.controller.js
-import { readTodos, writeTodos } from "../utils/fileHandler.js";
+import { Todo } from "../models/todo.model.js";
 import { validateTodo } from "../utils/validateTodo.js";
 
-export function getTodos(req, res) {
-  res.json(readTodos());
+export async function getTodos(req, res) {
+  const todos = await Todo.find({ userId: req.user.id });
+  res.json(todos);
 }
 
-export function createTodo(req, res) {
-  const todos = readTodos();
-
-  const newTodo = {
-    id: Date.now(),
-    ...req.body,
-    completed: false,
-  };
-
-  const error = validateTodo(newTodo);
+export async function createTodo(req, res) {
+  const error = validateTodo(req.body);
   if (error) {
-    return res.status(422).json({ error });
+    return res.status(400).json({ error });
   }
 
-  todos.unshift(newTodo);
-  writeTodos(todos);
+  const todo = await Todo.create({
+    ...req.body,
+    userId: req.user.id,
+  });
 
-  res.status(201).json(newTodo);
+  res.status(201).json(todo);
 }
 
-export function updateTodo(req, res) {
-  const todos = readTodos();
-  const id = Number(req.params.id);
+export async function updateTodo(req, res) {
+  const { id } = req.params;
 
   const error = validateTodo(req.body);
   if (error) {
-    return res.status(422).json({ error });
+    return res.status(400).json({ error });
   }
 
-  const updatedTodos = todos.map(todo =>
-    todo.id === id ? { ...todo, ...req.body } : todo
+  const updatedTodo = await Todo.findOneAndUpdate(
+    { _id: id, userId: req.user.id },
+    req.body,
+    { new: true },
   );
 
-  writeTodos(updatedTodos);
-  res.json({ message: "Todo updated" });
+  if (!updatedTodo) {
+    return res.status(404).json({ error: "Todo not found" });
+  }
+
+  res.json(updatedTodo);
 }
 
-export function deleteTodo(req, res) {
-  const todos = readTodos();
-  const id = Number(req.params.id);
+export async function deleteTodo(req, res) {
+  const { id } = req.params;
 
-  writeTodos(todos.filter(todo => todo.id !== id));
-  res.json({ message: "Todo deleted" });
+  const deletedTodo = await Todo.findOneAndDelete({
+    _id: id,
+    userId: req.user.id,
+  });
+
+  if (!deletedTodo) {
+    return res.status(404).json({ error: "Todo not found" });
+  }
+
+  res.json({ message: "Todo deleted successfully" });
 }

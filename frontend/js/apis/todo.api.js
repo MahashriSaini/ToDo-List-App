@@ -37,7 +37,7 @@ export async function createTodo(todo) {
 export async function updateTodo(id, updates) {
   const token = localStorage.getItem("token");
   const res = await fetch(`${BASE_URL}/todos/${id}`, {
-    method: "PUT",
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,

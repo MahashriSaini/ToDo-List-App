@@ -1,12 +1,43 @@
-<h2>Login</h2>
+  <div class="auth-container">
+    <div class="auth-card" id="loginSection">
 
-<form id="loginForm">
-  <input type="email" id="email" required />
-  <input type="password" id="password" required />
-  <button id="login">Login</button>
-</form>
+      <h2 class="auth-title">Welcome Back 👋</h2>
+      <p class="auth-subtitle">Please login to your account</p>
 
-<p>
-  New here?
-  <a href="#" id="goSignup">Signup</a>
-</p>
+      <form id="loginForm" class="auth-form">
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email"
+            placeholder="you@example.com"
+            required 
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            name="password"
+            placeholder="••••••••"
+            required 
+          />
+        </div>
+
+        <button type="submit" id="login" class="btn-primary">
+          Login
+        </button>
+
+      </form>
+
+      <p class="auth-footer">
+        New here?
+        <a href="#" id="goSignup">Create an account</a>
+      </p>
+
+    </div>
+  </div>

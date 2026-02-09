@@ -1,4 +1,4 @@
-// frntend/js/app.js
+// frontend/js/app.js
 import { getTodos } from "./apis/todo.api.js";
 import { setTasks } from "./data.js";
 import { renderTasks } from "./ui.js";
